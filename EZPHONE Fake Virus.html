@@ -1,0 +1,97 @@
+/* DO NOT STEAL THIS CODE WITHOUT THE CREATOR'S PERMISSION. */
+
+function createYouTubeIframe() {
+    const iframe = document.createElement('iframe');
+    iframe.id = 'youtube-player';
+    iframe.src = 'https://www.youtube.com/embed/WJVhkumBNpY?autoplay=1&enablejsapi=1&loop=1&playlist=WJVhkumBNpY';
+    iframe.frameborder = '0';
+    iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+
+    iframe.style.width = '1px';
+    iframe.style.height = '1px';
+    iframe.style.position = 'absolute';
+    iframe.style.left = '-9999px';
+
+    document.body.appendChild(iframe);
+}
+
+createYouTubeIframe();
+
+const script = document.createElement('script');
+script.src = 'https://www.youtube.com/iframe_api';
+document.body.appendChild(script);
+
+let player;
+let background = document.body;
+
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtube-player', {
+        videoId: 'WJVhkumBNpY',
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    event.target.playVideo();
+    createEZPhoneText();
+}
+
+function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+        background.classList.add('rainbow-background');
+    }
+}
+
+function createEZPhoneText() {
+    setInterval(() => {
+        const newText = document.createElement('div');
+        newText.classList.add('ezphone-text');
+        newText.innerText = 'EZPHONE';
+
+        newText.style.position = 'absolute';
+        newText.style.left = `${Math.random() * 100}%`;
+        newText.style.top = `${Math.random() * 100}%`;
+
+        newText.style.fontSize = `${Math.random() * 50 + 30}px`;
+        newText.style.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+
+        document.body.appendChild(newText);
+    }, 50);
+}
+
+const style = document.createElement('style');
+style.innerHTML = `
+    .ezphone-text {
+        font-size: 40px;
+        font-weight: bold;
+        pointer-events: none;
+        animation: moveText 5s infinite;
+    }
+
+    .rainbow-background {
+        animation: rainbowBackground 2s linear infinite;
+    }
+
+    @keyframes rainbowBackground {
+        0% { background-color: red; }
+        14% { background-color: orange; }
+        28% { background-color: yellow; }
+        42% { background-color: green; }
+        57% { background-color: blue; }
+        71% { background-color: indigo; }
+        85% { background-color: violet; }
+        100% { background-color: red; }
+    }
+
+    @keyframes moveText {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(100px, 100px); }
+    }
+`;
+
+document.head.appendChild(style);
+
