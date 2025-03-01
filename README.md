@@ -1,1 +1,1 @@
-Sadly, no instructions will be added. So if you don't know how to execute JavaScript, watch a tutorial in YouTube.
+Sadly, no instructions will be added. So if you don't know how to execute HTML, watch a tutorial in YouTube.
